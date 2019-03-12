@@ -8,7 +8,7 @@
                 <van-col span="14">
                     <ul id='left_ul'>
                     
-                        <li v-for="item in list" :key="item.id"><router-link to="/show">{{ item.TITLE }}</router-link></li>
+                        <li v-for="item in list" :key="item.id"><a  @click="goShow(item.ID)">{{ item.TITLE }}</a></li>
                       
                     </ul>
                    <van-pagination v-model="currentPage" :total-items="24" :items-per-page="5"/>
@@ -41,11 +41,11 @@
         },
         components:{headComponent, footComponent, rightComponent},
         created() {
-           this.gitList();
+           this.getList();
            this.getRecent();
         },
         methods: {
-            gitList(){
+            getList(){
                 axios(url.articleList)
                 .then(response => {
                     this.list = response.data.message;
@@ -64,6 +64,10 @@
                 .catch((error) => {
                     console.log(error)
                 })
+            },
+            //跳转 
+            goShow(id){
+                this.$router.push({name:'Show',params:{ShowId:id}})
             }
         }
         

@@ -5,12 +5,9 @@
         <div id="main">
             <van-row type="flex" justify="center">
                 <van-col span="14">
+                    <h3>{{ title }}</h3>
                     <div id="show_content">
-                        Welcome to Hexo! This is your very first post. Check documentation for more info. 
-                        If you get any problems when using Hexo, you can find the answer in troubleshooting
-                         or you can ask me on GitHub.
-                        Quick Start
-                        Create a new post
+                        {{ content }}
                     </div>
                 </van-col>
                 <van-col span="6">
@@ -27,15 +24,35 @@
     import headComponent from '../component/headComponent'
     import footComponent from '../component/footComponent'
     import rightComponent from '../component/rightComponent'
+    import url from '@/serviceAPI.config.js'
+    import axios from 'axios'
 
     export default {
         data (){
             return {
-                currentPage: 1,
+                showId:'',
+                title:'2',
+                content:'3',
                 headmsg: 'SHOW'
             }
         },
-         components:{headComponent, footComponent, rightComponent},
+        components:{headComponent, footComponent, rightComponent},
+        created() {
+            this.showId =  this.$route.params.ShowId
+            this.getInfo()
+        },
+        methods: {
+            getInfo(){
+                axios.get(url.articleShow+'/'+this.showId)
+                .then(response => {
+                    this.title = response.data.message.TITLE;
+                    this.content = response.data.message.CONTENT;
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            },
+        }
     }
 </script>
 
