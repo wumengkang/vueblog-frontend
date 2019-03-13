@@ -59,7 +59,6 @@
                 axios(url.recentArticle)
                 .then(response => {
                     this.recent = response.data.message;
-                    console.log(response.data.message)
                 })
                 .catch((error) => {
                     console.log(error)
@@ -67,7 +66,7 @@
             },
             //跳转 
             goShow(id){
-                this.$router.push({name:'Show',params:{ShowId:id}})
+                this.$router.push({path:'/show',query:{aid:id}})
             }
         }
         

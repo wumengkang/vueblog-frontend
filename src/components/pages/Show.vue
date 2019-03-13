@@ -11,7 +11,7 @@
                     </div>
                 </van-col>
                 <van-col span="6">
-                    <rightComponent></rightComponent>      
+                    <rightComponent :rightDate="recent"></rightComponent>      
                 </van-col>
             </van-row>    
         </div>
@@ -31,15 +31,25 @@
         data (){
             return {
                 showId:'',
-                title:'2',
-                content:'3',
-                headmsg: 'SHOW'
+                title:'',
+                content:'',
+                headmsg: 'SHOW',
+                recent: [],
             }
         },
         components:{headComponent, footComponent, rightComponent},
         created() {
-            this.showId =  this.$route.params.ShowId
-            this.getInfo()
+            this.showId =  this.$route.query.aid ? this.$route.query.aid: this.$route.params.aid
+            this.getInfo();
+            this.getRecent();
+        },
+        watch:{
+            '$route' (to, from) { //监听路由是否变化
+                if(this.$route.query.aid){//判断id是否有值
+                   this.showId =  this.$route.query.aid ? this.$route.query.aid: this.$route.params.aid
+                   this.getInfo();
+                }
+            }
         },
         methods: {
             getInfo(){
@@ -47,6 +57,15 @@
                 .then(response => {
                     this.title = response.data.message.TITLE;
                     this.content = response.data.message.CONTENT;
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            },
+            getRecent(){
+                axios(url.recentArticle)
+                .then(response => {
+                    this.recent = response.data.message;
                 })
                 .catch((error) => {
                     console.log(error)

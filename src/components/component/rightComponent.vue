@@ -2,7 +2,7 @@
     <div>
         <h4 id="right_title">RECENT POSTS</h4>
         <ul id ="right_ul">
-            <li v-for="item in rencentlist" :key="item.id"><router-link to="/show">{{ item.TITLE }}</router-link></li>
+            <li v-for="item in rencentlist" :key="item.id"><a  @click="goShow(item.ID)">{{ item.TITLE }}</a></li>
         </ul>      
     </div>
 </template>
@@ -16,11 +16,20 @@
             }
         },
         created(){
-            
+           
+        },
+        mounted(){
+           
         },
         watch:{
             rightDate:function(val){
                 this.rencentlist = this.rightDate;
+            }
+        },
+        methods: {
+            //跳转 
+            goShow(id){
+                this.$router.push({path:'/show',query:{aid:id}})
             }
         }
     }
