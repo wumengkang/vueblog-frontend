@@ -3,9 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import { Button, Row, Col, Icon, Cell, CellGroup, Pagination } from 'vant'
+import { Button, Row, Col, Icon, Cell, CellGroup, Pagination, Field } from 'vant'
 
-Vue.use(Button).use(Row).use(Col).use(Icon).use(Cell).use(CellGroup).use(Pagination);
+Vue.use(Button).use(Row).use(Col).use(Icon).use(Cell).use(CellGroup).use(Pagination).use(Field);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

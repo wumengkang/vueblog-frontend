@@ -9,6 +9,15 @@
                     <div id="show_content">
                         {{ content }}
                     </div>
+                    <div id='comment'>
+                        <ul id="comment_content">
+                            <li v-for="msg in msgs" :key="msg.id">" {{ msg.MSG }} "</li>
+                        </ul>
+                        <van-cell-group>
+                            <van-field v-model="value" placeholder="请输入评论" />
+                            <van-button @click="submit()" size="small">提交评论</van-button>
+                        </van-cell-group>
+                    </div>
                 </van-col>
                 <van-col span="6">
                     <rightComponent :rightDate="recent"></rightComponent>      
@@ -16,7 +25,6 @@
             </van-row>    
         </div>
         <footComponent></footComponent>
-
     </div>
 </template>
 
@@ -34,7 +42,9 @@
                 title:'',
                 content:'',
                 headmsg: 'SHOW',
+                value: '',
                 recent: [],
+                msgs: [],
             }
         },
         components:{headComponent, footComponent, rightComponent},
@@ -57,6 +67,8 @@
                 .then(response => {
                     this.title = response.data.message.TITLE;
                     this.content = response.data.message.CONTENT;
+                    this.msgs = response.data.message.COMMENT;
+                    //console.log(response.data.message);
                 })
                 .catch((error) => {
                     console.log(error)
@@ -86,7 +98,11 @@
 }
 #show_content{
     padding-top: 15px;
-    min-height: 330px;
+    min-height: 230px;
     color: #666;
+}
+#comment_content li {
+    font-size: 12px;
+    line-height: 18px;
 }
 </style>
