@@ -83,6 +83,21 @@
                     console.log(error)
                 })
             },
+            submit(){
+                axios({
+                   url:url.comment,
+                   method: 'post',
+                   data:{
+                       comment:this.value,
+                       id:this.showId
+                   }
+                }).then(response=>{
+                    this.msgs.push({MSG:this.value});
+                    console.log(this.msgs);
+                }).catch((error)=>{
+                    console.log(error)
+                })
+            }
         }
     }
 </script>

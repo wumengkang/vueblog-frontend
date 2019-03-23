@@ -3,5 +3,6 @@ const URL = {
     articleList:LOCALURL+'article/list',   //文章列表接口
     recentArticle:LOCALURL+'article/recent',   //最近三篇文章接口
     articleShow:LOCALURL+'article/show',   //文章详情接口
+    comment:LOCALURL+'article/comment',   //文章评论接口
 }
 module.exports = URL
